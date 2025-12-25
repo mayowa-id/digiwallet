@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/wallet_dev
+
+  kafka:
+    bootstrap-servers: kafka:9092
+
+  data:
+    redis:
+      host: redis
