@@ -1,4 +1,4 @@
-package com.fintech.digiwallet.domain.exception;
+package com.fintech.digiwallet.exception;
 
 public class InsufficientFundsException extends RuntimeException {
     public InsufficientFundsException(String message) {

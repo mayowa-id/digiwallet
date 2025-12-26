@@ -1,4 +1,4 @@
-package com.fintech.digiwallet.domain.exception;
+package com.fintech.digiwallet.exception;
 
 public class FraudDetectedException extends RuntimeException {
     public FraudDetectedException(String message) {

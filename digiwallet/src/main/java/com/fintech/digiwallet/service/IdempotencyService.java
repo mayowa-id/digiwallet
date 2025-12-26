@@ -1,7 +1,7 @@
 package com.fintech.digiwallet.service;
 
 
-import com.fintech.digiwallet.domain.exception.DuplicateTransactionException;
+import com.fintech.digiwallet.exception.DuplicateTransactionException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;

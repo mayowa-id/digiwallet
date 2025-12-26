@@ -10,8 +10,8 @@ import com.fintech.digiwallet.dto.request.TransferRequest;
 import com.fintech.digiwallet.dto.request.WithdrawalRequest;
 import com.fintech.digiwallet.dto.response.TransactionResponse;
 import com.fintech.digiwallet.dto.mapper.TransactionMapper;
-import com.fintech.digiwallet.domain.exception.InsufficientFundsException;
-import com.fintech.digiwallet.domain.exception.InvalidTransactionException;
+import com.fintech.digiwallet.exception.InsufficientFundsException;
+import com.fintech.digiwallet.exception.InvalidTransactionException;
 import com.fintech.digiwallet.service.TransactionIdGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +36,7 @@ public class TransactionService {
     private final WalletService walletService;
     private final LedgerService ledgerService;
     private final IdempotencyService idempotencyService;
+    private final FraudDetectionService fraudDetectionService;
     private final TransactionMapper transactionMapper;
     private final TransactionIdGenerator idGenerator;
 
@@ -74,6 +75,10 @@ public class TransactionService {
             // Calculate fee
             BigDecimal fee = calculateFee(request.getAmount());
             BigDecimal totalAmount = request.getAmount().add(fee);
+
+            // Check fraud detection
+            fraudDetectionService.checkTransaction(
+                    sourceWallet, totalAmount, "TRANSFER");
 
             // Check sufficient balance
             if (sourceWallet.getAvailableBalance().compareTo(totalAmount) < 0) {

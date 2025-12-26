@@ -2,16 +2,14 @@ package com.fintech.digiwallet.service;
 
 import com.fintech.digiwallet.domain.entity.User;
 import com.fintech.digiwallet.domain.entity.Wallet;
-import com.fintech.digiwallet.domain.enums.Currency;
 import com.fintech.digiwallet.domain.repository.UserRepository;
 import com.fintech.digiwallet.domain.repository.WalletRepository;
 import com.fintech.digiwallet.dto.request.CreateWalletRequest;
 import com.fintech.digiwallet.dto.response.BalanceResponse;
 import com.fintech.digiwallet.dto.response.WalletResponse;
 import com.fintech.digiwallet.dto.mapper.WalletMapper;
-import com.fintech.digiwallet.domain.exception.UserNotFoundException;
-import com.fintech.digiwallet.domain.exception.WalletNotFoundException;
-import com.fintech.digiwallet.service.TransactionIdGenerator;
+import com.fintech.digiwallet.exception.UserNotFoundException;
+import com.fintech.digiwallet.exception.WalletNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

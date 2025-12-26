@@ -1,4 +1,4 @@
-package com.fintech.digiwallet.domain.exception;
+package com.fintech.digiwallet.exception;
 
 public class PaymentGatewayException extends RuntimeException {
     public PaymentGatewayException(String message) {

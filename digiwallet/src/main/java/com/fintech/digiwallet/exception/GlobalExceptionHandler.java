@@ -1,4 +1,4 @@
-package com.fintech.digiwallet.domain.exception;
+package com.fintech.digiwallet.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
