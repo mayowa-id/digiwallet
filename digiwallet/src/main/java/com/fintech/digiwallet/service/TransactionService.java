@@ -5,6 +5,7 @@ import com.fintech.digiwallet.domain.entity.Wallet;
 import com.fintech.digiwallet.domain.enums.TransactionStatus;
 import com.fintech.digiwallet.domain.enums.TransactionType;
 import com.fintech.digiwallet.domain.repository.TransactionRepository;
+import com.fintech.digiwallet.dto.event.TransactionEvent;
 import com.fintech.digiwallet.dto.request.DepositRequest;
 import com.fintech.digiwallet.dto.request.TransferRequest;
 import com.fintech.digiwallet.dto.request.WithdrawalRequest;
@@ -12,6 +13,7 @@ import com.fintech.digiwallet.dto.response.TransactionResponse;
 import com.fintech.digiwallet.dto.mapper.TransactionMapper;
 import com.fintech.digiwallet.exception.InsufficientFundsException;
 import com.fintech.digiwallet.exception.InvalidTransactionException;
+import com.fintech.digiwallet.integration.kafka.producer.TransactionEventProducer;
 import com.fintech.digiwallet.service.TransactionIdGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +41,7 @@ public class TransactionService {
     private final FraudDetectionService fraudDetectionService;
     private final TransactionMapper transactionMapper;
     private final TransactionIdGenerator idGenerator;
+    private final TransactionEventProducer eventProducer;
 
     private static final BigDecimal FEE_PERCENTAGE = new BigDecimal("0.01"); // 1% fee
 
@@ -123,6 +126,9 @@ public class TransactionService {
                 transaction.setStatus(TransactionStatus.COMPLETED);
                 transaction.setCompletedAt(LocalDateTime.now());
                 transaction = transactionRepository.save(transaction);
+
+                // Publish event
+                publishTransactionCompletedEvent(transaction);
 
                 idempotencyService.markCompleted(
                         request.getIdempotencyKey(),
@@ -292,5 +298,28 @@ public class TransactionService {
     private BigDecimal calculateFee(BigDecimal amount) {
         return amount.multiply(FEE_PERCENTAGE)
                 .setScale(2, BigDecimal.ROUND_HALF_UP);
+    }
+
+    private void publishTransactionCompletedEvent(Transaction transaction) {
+        TransactionEvent event = TransactionEvent.builder()
+                .transactionId(transaction.getId())
+                .transactionRef(transaction.getTransactionRef())
+                .sourceWalletId(transaction.getSourceWallet() != null ?
+                        transaction.getSourceWallet().getId() : null)
+                .destinationWalletId(transaction.getDestinationWallet() != null ?
+                        transaction.getDestinationWallet().getId() : null)
+                .transactionType(transaction.getTransactionType())
+                .status(transaction.getStatus())
+                .amount(transaction.getAmount())
+                .currency(transaction.getCurrency())
+                .sourceUserEmail(transaction.getSourceWallet() != null ?
+                        transaction.getSourceWallet().getUser().getEmail() : null)
+                .destinationUserEmail(transaction.getDestinationWallet() != null ?
+                        transaction.getDestinationWallet().getUser().getEmail() : null)
+                .timestamp(LocalDateTime.now())
+                .eventType("COMPLETED")
+                .build();
+
+        eventProducer.publishTransactionEvent(event);
     }
 }
