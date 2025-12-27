@@ -149,4 +149,4 @@ public class NotificationService {
         data.put("type", event.getTransactionType().toString());
         return data;
     }
-}}
+}
