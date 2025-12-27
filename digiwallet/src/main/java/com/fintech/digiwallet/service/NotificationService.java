@@ -17,6 +17,7 @@ import java.util.Map;
 public class NotificationService {
 
     private final TransactionEventProducer eventProducer;
+    private final EmailService emailService;
 
     @KafkaListener(
             topics = "transaction-events",
@@ -35,68 +36,69 @@ public class NotificationService {
     private void sendTransactionNotifications(TransactionEvent event) {
         // Send notification to source user (if exists)
         if (event.getSourceUserEmail() != null) {
-            NotificationEvent notification = NotificationEvent.builder()
-                    .recipient(event.getSourceUserEmail())
-                    .notificationType("EMAIL")
-                    .subject("Transaction Completed")
-                    .message(buildDebitMessage(event))
-                    .templateData(buildTemplateData(event))
-                    .timestamp(event.getTimestamp())
-                    .build();
+            String emailBody = emailService.buildTransactionEmail(
+                    event.getSourceUserEmail().split("@")[0],
+                    event.getTransactionType().toString(),
+                    event.getAmount().toString(),
+                    event.getCurrency().toString(),
+                    event.getTransactionRef()
+            );
 
-            sendNotification(notification);
+            emailService.sendEmail(
+                    event.getSourceUserEmail(),
+                    "Transaction Completed - " + event.getTransactionRef(),
+                    emailBody
+            );
         }
 
         // Send notification to destination user (if exists)
         if (event.getDestinationUserEmail() != null) {
-            NotificationEvent notification = NotificationEvent.builder()
-                    .recipient(event.getDestinationUserEmail())
-                    .notificationType("EMAIL")
-                    .subject("Funds Received")
-                    .message(buildCreditMessage(event))
-                    .templateData(buildTemplateData(event))
-                    .timestamp(event.getTimestamp())
-                    .build();
+            String emailBody = emailService.buildTransactionEmail(
+                    event.getDestinationUserEmail().split("@")[0],
+                    "CREDIT",
+                    event.getAmount().toString(),
+                    event.getCurrency().toString(),
+                    event.getTransactionRef()
+            );
 
-            sendNotification(notification);
+            emailService.sendEmail(
+                    event.getDestinationUserEmail(),
+                    "Funds Received - " + event.getTransactionRef(),
+                    emailBody
+            );
         }
     }
 
     public void sendScheduledPaymentNotification(String userEmail,
                                                  String transactionRef,
                                                  String amount) {
-        log.info("🔔 SENDING SCHEDULED PAYMENT NOTIFICATION to: {}", userEmail);
+        log.info("SENDING SCHEDULED PAYMENT EMAIL to: {}", userEmail);
 
-        String message = String.format(
-                "✅ Your scheduled payment of %s has been processed successfully! " +
-                        "Transaction Reference: %s",
-                amount, transactionRef
+        String[] parts = amount.split(" ");
+        String amountValue = parts[0];
+        String currency = parts.length > 1 ? parts[1] : "USD";
+
+        String emailBody = emailService.buildScheduledPaymentEmail(
+                userEmail.split("@")[0],
+                amountValue,
+                currency,
+                transactionRef
         );
 
-        NotificationEvent notification = NotificationEvent.builder()
-                .recipient(userEmail)
-                .notificationType("EMAIL")
-                .subject("💰 Scheduled Payment Processed")
-                .message(message)
-                .templateData(Map.of(
-                        "type", "SCHEDULED_PAYMENT",
-                        "transactionRef", transactionRef,
-                        "amount", amount
-                ))
-                .timestamp(java.time.LocalDateTime.now())
-                .build();
+        emailService.sendEmail(
+                userEmail,
+                "Scheduled Payment Processed - " + transactionRef,
+                emailBody
+        );
 
-        sendNotification(notification);
-    }
-
-    private void sendNotification(NotificationEvent notification) {
-        // Publish to Kafka for async processing
-        eventProducer.publishNotificationEvent(notification);
-
-        // For demo purposes, also log to console with emoji
-        log.info("📧 NOTIFICATION SENT to {}: {}",
-                notification.getRecipient(),
-                notification.getMessage());
+        // Also log to console for demo
+        System.out.println("\n" + "=".repeat(80));
+        System.out.println("SCHEDULED PAYMENT EMAIL SENT!");
+        System.out.println("=".repeat(80));
+        System.out.println("To: " + userEmail);
+        System.out.println("Amount: " + amount);
+        System.out.println("Reference: " + transactionRef);
+        System.out.println("=".repeat(80) + "\n");
     }
 
     @KafkaListener(
@@ -107,15 +109,14 @@ public class NotificationService {
     public void processNotification(NotificationEvent event) {
         log.info("📬 Processing notification for: {}", event.getRecipient());
 
-        // In production, this would send actual emails/SMS
-        // For now, we'll just log with fancy formatting
+        // Log to console for demo visibility
         System.out.println("\n" + "=".repeat(80));
-        System.out.println("🔔 NEW NOTIFICATION");
+        System.out.println("NEW NOTIFICATION");
         System.out.println("=".repeat(80));
-        System.out.println("📧 To: " + event.getRecipient());
-        System.out.println("📌 Subject: " + event.getSubject());
-        System.out.println("💬 Message: " + event.getMessage());
-        System.out.println("⏰ Time: " + event.getTimestamp());
+        System.out.println("To: " + event.getRecipient());
+        System.out.println("Subject: " + event.getSubject());
+        System.out.println("Message: " + event.getMessage());
+        System.out.println("Time: " + event.getTimestamp());
         System.out.println("=".repeat(80) + "\n");
     }
 
@@ -148,4 +149,4 @@ public class NotificationService {
         data.put("type", event.getTransactionType().toString());
         return data;
     }
-}
+}}
