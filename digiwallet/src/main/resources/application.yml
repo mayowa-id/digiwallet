@@ -17,6 +17,21 @@ spring:
       idle-timeout: 600000
       max-lifetime: 1800000
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL_USERNAME:your-email@gmail.com}
+    password: ${EMAIL_PASSWORD:your-app-password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+        transport:
+          protocol: smtp
+    default-encoding: UTF-8
   jpa:
     hibernate:
       ddl-auto: validate
