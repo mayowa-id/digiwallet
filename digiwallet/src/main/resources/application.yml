@@ -56,7 +56,7 @@ jpa:
         order_updates: true
 
   flyway:
-    enabled: false  # DISABLED - This was the main problem
+    enabled: false
 
   kafka:
     enabled: false
