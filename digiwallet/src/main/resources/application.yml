@@ -15,24 +15,16 @@ spring:
       minimum-idle: 5
       connection-timeout: 30000
 
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/wallet_dev
-#    username: postgres
-#    password: postgres
-#    driver-class-name: org.postgresql.Driver
-#    hikari:
-#      maximum-pool-size: 10
-#      minimum-idle: 5
-#      connection-timeout: 30000
-#      idle-timeout: 600000
-#      max-lifetime: 1800000
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 
   mail:
     host: smtp.gmail.com
     port: 587
     username: idowumayowa02@gmail.com
     password: mvmttngkkceddfnk
-
     properties:
       mail:
         smtp:
@@ -43,38 +35,36 @@ spring:
         transport:
           protocol: smtp
     default-encoding: UTF-8
+
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create-drop  # Changed from validate to create-drop
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.H2Dialect  # Changed from PostgreSQL to H2
         jdbc:
           batch_size: 20
         order_inserts: true
         order_updates: true
 
   flyway:
-    enabled: true
-    baseline-on-migrate: true
-    locations: classpath:db/migration
-    schemas: public
+    enabled: false  # DISABLED - This was the main problem
 
-  kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      acks: all
-      retries: 3
-    consumer:
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      auto-offset-reset: earliest
-      properties:
-        spring.json.trusted.packages: com.fintech.wallet.*
+#  kafka:
+#    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#      acks: all
+#      retries: 3
+#    consumer:
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#      auto-offset-reset: earliest
+#      properties:
+#        spring.json.trusted.packages: com.fintech.wallet.*
 
   data:
     redis:
@@ -89,11 +79,10 @@ server:
     include-message: always
     include-binding-errors: always
 
-# Application specific configs
 app:
   jwt:
-    secret: ${JWT_SECRET:your-256-bit-secret-key-change-this-in-production}
-    expiration: 86400000 # 24 hours
+    secret: ${JWT_SECRET:your-super-secret-key-needs-to-be-at-least-256-bits-long-for-proper-hs512-signing}
+    expiration: 86400000
 
   payment:
     stripe:
@@ -113,7 +102,6 @@ app:
     max-transactions-per-hour: 10
     suspicious-amount-threshold: 100000
 
-# Actuator
 management:
   endpoints:
     web:
@@ -128,7 +116,6 @@ management:
       prometheus:
         enabled: true
 
-# Resilience4j
 resilience4j:
   circuitbreaker:
     instances:
@@ -137,7 +124,6 @@ resilience4j:
         failure-rate-threshold: 50
         wait-duration-in-open-state: 30000
         permitted-number-of-calls-in-half-open-state: 3
-
   ratelimiter:
     instances:
       transactionApi:
@@ -145,20 +131,28 @@ resilience4j:
         limit-refresh-period: 1s
         timeout-duration: 0s
 
-# Logging
 logging:
   level:
-    com.fintech.wallet: DEBUG
+    com.fintech.digiwallet: DEBUG
     org.springframework.security: DEBUG
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
 
-# Springdoc OpenAPI
 springdoc:
   api-docs:
     path: /api-docs
   swagger-ui:
     path: /swagger-ui.html
     operations-sorter: method
+
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/wallet_dev
+#    username: postgres
+#    password: postgres
+#    driver-class-name: org.postgresql.Driver
+#    hikari:
+#      maximum-pool-size: 10
+#      minimum-idle: 5
+#      connection-timeout: 30000
+#      idle-timeout: 600000
+#      max-lifetime: 1800000
