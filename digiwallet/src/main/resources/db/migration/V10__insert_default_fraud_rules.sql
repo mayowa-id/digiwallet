@@ -1,4 +1,16 @@
-INSERT INTO fraud_rules (id, rule_name, rule_type, rule_config, is_active, priority, description, action)
+INSERT INTO fraud_rules (
+  id,
+  name,
+  threshold,
+  enabled,
+  created_at
+) VALUES (
+  RANDOM_UUID(),
+  'HIGH_AMOUNT',
+  100000,
+  TRUE,
+  CURRENT_TIMESTAMP
+);
 VALUES
 (gen_random_uuid(), 'Max Daily Transaction Limit', 'AMOUNT_THRESHOLD',
  '{"max_daily_amount": 1000000, "currency": "NGN"}',

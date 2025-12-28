@@ -10,7 +10,7 @@ CREATE TABLE transactions (
     fee NUMERIC(19, 4) NOT NULL DEFAULT 0,
     description VARCHAR(500),
     idempotency_key VARCHAR(100) NOT NULL UNIQUE,
-    metadata JSONB,
+    metadata VARCHAR(5000),
     external_reference VARCHAR(100),
     failure_reason VARCHAR(500),
     completed_at TIMESTAMP,

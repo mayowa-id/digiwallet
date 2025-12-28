@@ -2,7 +2,7 @@ CREATE TABLE fraud_rules (
     id UUID PRIMARY KEY,
     rule_name VARCHAR(100) NOT NULL UNIQUE,
     rule_type VARCHAR(50) NOT NULL,
-    rule_config JSONB NOT NULL,
+    rule_config VARCHAR(5000) NOT NULL,
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
     priority INTEGER NOT NULL DEFAULT 0,
     description VARCHAR(1000),
