@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4381fb7-8279-4daa-b467-2be4a51d859a" name="Changes" comment="configured kafka">
+    <list default="true" id="c4381fb7-8279-4daa-b467-2be4a51d859a" name="Changes" comment="configuring mail">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/domain/entity/AuditLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/domain/entity/AuditLog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/digiwallet/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/digiwallet/src/main/resources/db/migration/V10__insert_default_fraud_rules.sql" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/src/main/resources/db/migration/V10__insert_default_fraud_rules.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/digiwallet/src/main/resources/db/migration/V8__create_fraud_rules_table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/src/main/resources/db/migration/V8__create_fraud_rules_table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/digiwallet/src/main/resources/db/migration/V9__create_audit_logs_table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/src/main/resources/db/migration/V9__create_audit_logs_table.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -282,7 +282,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766941499935</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="configuring mail">
+      <option name="closed" value="true" />
+      <created>1766955803682</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1766955803682</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -318,6 +326,7 @@
     <MESSAGE value="figuring out what to do with the db" />
     <MESSAGE value="disabled kafka for now" />
     <MESSAGE value="configured kafka" />
-    <option name="LAST_COMMIT_MESSAGE" value="configured kafka" />
+    <MESSAGE value="configuring mail" />
+    <option name="LAST_COMMIT_MESSAGE" value="configuring mail" />
   </component>
 </project>

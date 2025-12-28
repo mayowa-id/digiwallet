@@ -10,7 +10,6 @@ import org.hibernate.type.SqlTypes;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
 @Entity
 @Table(name = "audit_logs", indexes = {
         @Index(name = "idx_audit_user", columnList = "user_id"),
@@ -30,7 +29,7 @@ public class AuditLog extends BaseEntity {
     private User user;
 
     @Column(nullable = false, length = 50)
-    private String entityType; // USER, WALLET, TRANSACTION, etc.
+    private String entityType;
 
     @Column(nullable = false)
     private UUID entityId;
@@ -39,13 +38,14 @@ public class AuditLog extends BaseEntity {
     @Column(nullable = false, length = 50)
     private AuditAction actionType;
 
+    // Changed for H2 compatibility - use TEXT instead of JSONB
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(columnDefinition = "jsonb")
+    @Column(columnDefinition = "TEXT")  // Changed from "jsonb" to "TEXT"
     @Builder.Default
     private Map<String, Object> oldValue = new HashMap<>();
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(columnDefinition = "jsonb")
+    @Column(columnDefinition = "TEXT")  // Changed from "jsonb" to "TEXT"
     @Builder.Default
     private Map<String, Object> newValue = new HashMap<>();
 

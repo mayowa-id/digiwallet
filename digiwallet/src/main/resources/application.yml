@@ -2,12 +2,6 @@ spring:
   application:
     name: digital-wallet
 
-jpa:
-  properties:
-    hibernate:
-      globally_quoted_identifiers: true
-      globally_quoted_identifiers_skip_column_definitions: true
-
   profiles:
     active: ${ACTIVE_PROFILE:dev}
 
@@ -44,19 +38,21 @@ jpa:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop  # Changed from validate to create-drop
+      ddl-auto: validate  # Changed back to validate since Flyway handles schema
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.H2Dialect  # Changed from PostgreSQL to H2
+        dialect: org.hibernate.dialect.H2Dialect
+        globally_quoted_identifiers: true
+        globally_quoted_identifiers_skip_column_definitions: true
         jdbc:
           batch_size: 20
         order_inserts: true
         order_updates: true
 
   flyway:
-    enabled: false
+    enabled: true  # Enable Flyway for migrations
 
   kafka:
     enabled: false
@@ -151,15 +147,3 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
     operations-sorter: method
-
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/wallet_dev
-#    username: postgres
-#    password: postgres
-#    driver-class-name: org.postgresql.Driver
-#    hikari:
-#      maximum-pool-size: 10
-#      minimum-idle: 5
-#      connection-timeout: 30000
-#      idle-timeout: 600000
-#      max-lifetime: 1800000
