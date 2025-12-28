@@ -1,7 +1,6 @@
 package com.fintech.digiwallet.config;
 
 import com.fintech.digiwallet.security.JwtAuthenticationFilter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,36 +21,45 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final UserDetailsService userDetailsService;
 
+    // Explicit constructor instead of @RequiredArgsConstructor
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter,
+                          UserDetailsService userDetailsService) {
+        this.jwtAuthFilter = jwtAuthFilter;
+        this.userDetailsService = userDetailsService;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        System.out.println("LOADING CUSTOM SECURITY CONFIG");
+        System.out.println("========== LOADING CUSTOM SECURITY CONFIG ==========");
 
         http
-                .csrf(csrf -> {
-                    csrf.disable();
-                    System.out.println("CSRF DISABLED");
-                })
+                .csrf(AbstractHttpConfigurer::disable)
+
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/api/v1/auth/**", "/actuator/**", "/error").permitAll()
                             .anyRequest().authenticated();
-                    System.out.println("AUTH RULES CONFIGURED");
+                    System.out.println("✓ AUTH RULES CONFIGURED");
                 })
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
+
+                .sessionManagement(session -> {
+                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                    System.out.println("✓ STATELESS SESSION CONFIGURED");
+                })
+
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
+
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
-        System.out.println(" SECURITY FILTER CHAIN BUILT");
-        return http.build();
+        SecurityFilterChain chain = http.build();
+        System.out.println("========== SECURITY FILTER CHAIN BUILT SUCCESSFULLY ==========");
+        return chain;
     }
 
     @Bean
