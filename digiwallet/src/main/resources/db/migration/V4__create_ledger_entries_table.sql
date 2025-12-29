@@ -1,4 +1,4 @@
-CREATE TABLE ledger_entries (
+CREATE TABLE ledger_entries(
     id UUID PRIMARY KEY,
     transaction_id UUID NOT NULL REFERENCES transactions(id) ON DELETE CASCADE,
     wallet_id UUID NOT NULL REFERENCES wallets(id) ON DELETE CASCADE,

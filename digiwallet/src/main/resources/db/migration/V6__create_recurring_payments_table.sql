@@ -1,4 +1,4 @@
-CREATE TABLE recurring_payments (
+CREATE TABLE recurring_payments(
     id UUID PRIMARY KEY,
     user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     source_wallet_id UUID NOT NULL REFERENCES wallets(id) ON DELETE CASCADE,

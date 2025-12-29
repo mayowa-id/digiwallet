@@ -43,6 +43,7 @@ public class User extends BaseEntity {
     @Builder.Default
     private Boolean isActive = true;
 
+
     @Column(nullable = false)
     @Builder.Default
     private Boolean emailVerified = false;

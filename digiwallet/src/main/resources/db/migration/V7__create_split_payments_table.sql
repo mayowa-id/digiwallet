@@ -1,4 +1,4 @@
-CREATE TABLE split_payments (
+CREATE TABLE split_payments(
     id UUID PRIMARY KEY,
     transaction_id UUID NOT NULL REFERENCES transactions(id) ON DELETE CASCADE,
     participant_wallet_id UUID NOT NULL REFERENCES wallets(id) ON DELETE CASCADE,

@@ -8,6 +8,7 @@ spring:
     username: sa
     password:
 
+
   h2:
     console:
       enabled: true
@@ -42,6 +43,7 @@ spring:
     enabled: false  # Disable Flyway for H2
 
   kafka:
+    enabled: false
     bootstrap-servers: localhost:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer

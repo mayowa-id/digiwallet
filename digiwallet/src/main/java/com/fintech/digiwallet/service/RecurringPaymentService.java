@@ -184,7 +184,7 @@ public class RecurringPaymentService {
                 formattedAmount
         );
 
-        log.info("✅ Scheduled payment executed successfully: {} - Next run: {}",
+        log.info(" Scheduled payment executed successfully: {} - Next run: {}",
                 payment.getId(), payment.getNextRunDate());
     }
 

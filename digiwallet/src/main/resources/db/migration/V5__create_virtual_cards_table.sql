@@ -1,4 +1,4 @@
-CREATE TABLE virtual_cards (
+CREATE TABLE virtual_cards(
     id UUID PRIMARY KEY,
     user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     wallet_id UUID NOT NULL REFERENCES wallets(id) ON DELETE CASCADE,

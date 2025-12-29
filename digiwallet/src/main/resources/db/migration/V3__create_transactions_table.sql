@@ -1,4 +1,4 @@
-CREATE TABLE transactions (
+CREATE TABLE transactions(
     id UUID PRIMARY KEY,
     transaction_ref VARCHAR(50) NOT NULL UNIQUE,
     source_wallet_id UUID REFERENCES wallets(id),

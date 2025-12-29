@@ -11,11 +11,11 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "recurring_payments", indexes = {
-        @Index(name = "idx_recurring_user", columnList = "user_id"),
-        @Index(name = "idx_recurring_wallet", columnList = "source_wallet_id"),
-        @Index(name = "idx_recurring_next_run", columnList = "next_run_date"),
-        @Index(name = "idx_recurring_status", columnList = "status")
+@Table(name = "RECURRING_PAYMENTS", indexes = {
+        @Index(name = "IDX_RECURRING_USER", columnList = "USER_ID"),
+        @Index(name = "IDX_RECURRING_WALLET", columnList = "SOURCE_WALLET_ID"),
+        @Index(name = "IDX_RECURRING_NEXT_RUN", columnList = "NEXT_RUN_DATE"),
+        @Index(name = "IDX_RECURRING_STATUS", columnList = "STATUS")
 })
 @Getter
 @Setter

@@ -1,4 +1,4 @@
-CREATE TABLE audit_logs (
+CREATE TABLE audit_logs(
     id UUID PRIMARY KEY,
     user_id UUID,
 

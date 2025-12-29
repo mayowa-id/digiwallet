@@ -2,36 +2,37 @@ package com.fintech.digiwallet.service;
 
 import com.fintech.digiwallet.dto.event.NotificationEvent;
 import com.fintech.digiwallet.dto.event.TransactionEvent;
-import com.fintech.digiwallet.integration.kafka.producer.TransactionEventProducer;
+//import com.fintech.digiwallet.integration.kafka.producer.TransactionEventProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.annotation.KafkaListener;
+//import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class NotificationService {
 
-    private final TransactionEventProducer eventProducer;
+//    private final  TransactionEventProducer eventProducer;
     private final EmailService emailService;
 
-    @KafkaListener(
-            topics = "transaction-events",
-            groupId = "notification-service-group",
-            containerFactory = "kafkaListenerContainerFactory"
-    )
-    public void handleTransactionEvent(TransactionEvent event) {
-        log.info("Received transaction event: {} - {}",
-                event.getTransactionRef(), event.getEventType());
-
-        if ("COMPLETED".equals(event.getEventType())) {
-            sendTransactionNotifications(event);
-        }
-    }
+//    @KafkaListener(
+//            topics = "transaction-events",
+//            groupId = "notification-service-group",
+//            containerFactory = "kafkaListenerContainerFactory"
+//    )
+//    public void handleTransactionEvent(TransactionEvent event) {
+//        log.info("Received transaction event: {} - {}",
+//                event.getTransactionRef(), event.getEventType());
+//
+//        if ("COMPLETED".equals(event.getEventType())) {
+//            sendTransactionNotifications(event);
+//        }
+//    }
 
     private void sendTransactionNotifications(TransactionEvent event) {
         // Send notification to source user (if exists)
@@ -101,24 +102,24 @@ public class NotificationService {
         System.out.println("=".repeat(80) + "\n");
     }
 
-    @KafkaListener(
-            topics = "notification-events",
-            groupId = "notification-sender-group",
-            containerFactory = "kafkaListenerContainerFactory"
-    )
-    public void processNotification(NotificationEvent event) {
-        log.info("📬 Processing notification for: {}", event.getRecipient());
-
-        // Log to console for demo visibility
-        System.out.println("\n" + "=".repeat(80));
-        System.out.println("NEW NOTIFICATION");
-        System.out.println("=".repeat(80));
-        System.out.println("To: " + event.getRecipient());
-        System.out.println("Subject: " + event.getSubject());
-        System.out.println("Message: " + event.getMessage());
-        System.out.println("Time: " + event.getTimestamp());
-        System.out.println("=".repeat(80) + "\n");
-    }
+//    @KafkaListener(
+//            topics = "notification-events",
+//            groupId = "notification-sender-group",
+//            containerFactory = "kafkaListenerContainerFactory"
+//    )
+//    public void processNotification(NotificationEvent event) {
+//        log.info(" Processing notification for: {}", event.getRecipient());
+//
+//        // Log to console for demo visibility
+//        System.out.println("\n" + "=".repeat(80));
+//        System.out.println("NEW NOTIFICATION");
+//        System.out.println("=".repeat(80));
+//        System.out.println("To: " + event.getRecipient());
+//        System.out.println("Subject: " + event.getSubject());
+//        System.out.println("Message: " + event.getMessage());
+//        System.out.println("Time: " + event.getTimestamp());
+//        System.out.println("=".repeat(80) + "\n");
+//    }
 
     private String buildDebitMessage(TransactionEvent event) {
         return String.format(

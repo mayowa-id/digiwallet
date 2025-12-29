@@ -1,4 +1,4 @@
-CREATE TABLE fraud_rules (
+CREATE TABLE fraud_rules(
     id UUID PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     rule_type VARCHAR(50) NOT NULL,

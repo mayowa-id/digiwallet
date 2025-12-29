@@ -1,4 +1,4 @@
-INSERT INTO fraud_rules (
+INSERT INTO fraud_rules(
   id,
   name,
   rule_type,
