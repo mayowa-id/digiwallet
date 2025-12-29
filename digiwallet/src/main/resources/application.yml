@@ -8,8 +8,9 @@ spring:
   autoconfigure:
     exclude:
       - org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration
+
   datasource:
-    url: jdbc:h2:mem:wallet_dev;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:wallet_dev;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;DATABASE_TO_UPPER=false;CASE_INSENSITIVE_IDENTIFIERS=true
     driver-class-name: org.h2.Driver
     username: sa
     password:
@@ -33,7 +34,7 @@ spring:
         smtp:
           auth: true
           starttls:
-            enable: true
+            enabled: true
             required: true
         transport:
           protocol: smtp
@@ -44,15 +45,12 @@ spring:
       ddl-auto: none
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-
-
     show-sql: true
     properties:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.H2Dialect
-        globally_quoted_identifiers: true
-        globally_quoted_identifiers_skip_column_definitions: true
+        globally_quoted_identifiers: false  # Changed from true to false
         jdbc:
           batch_size: 20
         order_inserts: true
@@ -66,7 +64,7 @@ spring:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.suthpport.serializer.JsonSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       acks: all
       retries: 3
     consumer:
@@ -81,7 +79,7 @@ spring:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
       password: ${REDIS_PASSWORD:}
-      timeout: 60000
+      timeout: 60000ms
 
 server:
   port: 8080

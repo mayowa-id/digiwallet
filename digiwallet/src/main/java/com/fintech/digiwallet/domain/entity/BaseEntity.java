@@ -12,32 +12,25 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-
-
-
+@MappedSuperclass
 @Getter
 @Setter
-@MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 
 public abstract class BaseEntity {
 
-
     @Id
     @GeneratedValue
-    @JdbcTypeCode(SqlTypes.UUID)
-    @Column(updatable = false, nullable = false)
+    @Column(name = "ID")
     private UUID id;
 
-
-    @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column(name = "CREATED_AT", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @LastModifiedDate
-    @Column(nullable = false)
+    @Column(name = "UPDATED_AT", nullable = false)
     private LocalDateTime updatedAt;
 
     @Version
+    @Column(name = "VERSION", nullable = false)
     private Long version;
 }

@@ -1,6 +1,5 @@
 package com.fintech.digiwallet.domain.entity;
 
-
 import com.fintech.digiwallet.domain.enums.Currency;
 import com.fintech.digiwallet.domain.enums.PaymentFrequency;
 import com.fintech.digiwallet.domain.enums.TransactionStatus;
@@ -11,11 +10,11 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "RECURRING_PAYMENTS", indexes = {
-        @Index(name = "IDX_RECURRING_USER", columnList = "USER_ID"),
-        @Index(name = "IDX_RECURRING_WALLET", columnList = "SOURCE_WALLET_ID"),
-        @Index(name = "IDX_RECURRING_NEXT_RUN", columnList = "NEXT_RUN_DATE"),
-        @Index(name = "IDX_RECURRING_STATUS", columnList = "STATUS")
+@Table(name = "recurring_payments", indexes = {
+        @Index(name = "idx_recurring_user", columnList = "user_id"),
+        @Index(name = "idx_recurring_wallet", columnList = "source_wallet_id"),
+        @Index(name = "idx_recurring_next_run", columnList = "next_run_date"),
+        @Index(name = "idx_recurring_status", columnList = "status")
 })
 @Getter
 @Setter
@@ -32,8 +31,8 @@ public class RecurringPayment extends BaseEntity {
     @JoinColumn(name = "source_wallet_id", nullable = false)
     private Wallet sourceWallet;
 
-    @Column(nullable = false, length = 100)
-    private String destinationAccount; // Wallet number or external account
+    @Column(nullable = false, length = 100, name = "destination_account")
+    private String destinationAccount;
 
     @Column(nullable = false, precision = 19, scale = 4)
     private BigDecimal amount;
@@ -46,26 +45,28 @@ public class RecurringPayment extends BaseEntity {
     @Column(nullable = false, length = 20)
     private PaymentFrequency frequency;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "next_run_date")
     private LocalDate nextRunDate;
 
-    private LocalDate endDate; // Optional end date
+    @Column(name = "end_date")
+    private LocalDate endDate;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     @Builder.Default
     private TransactionStatus status = TransactionStatus.PENDING;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "execution_count")
     @Builder.Default
     private Integer executionCount = 0;
 
-    private Integer maxExecutions; // Optional max number of executions
+    @Column(name = "max_executions")
+    private Integer maxExecutions;
 
     @Column(length = 500)
     private String description;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "is_active")
     @Builder.Default
     private Boolean isActive = true;
 }
