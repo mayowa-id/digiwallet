@@ -3,6 +3,8 @@ package com.fintech.digiwallet.domain.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -10,16 +12,23 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+
+
+
 @Getter
 @Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
+
 public abstract class BaseEntity {
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue
+    @JdbcTypeCode(SqlTypes.UUID)
     @Column(updatable = false, nullable = false)
     private UUID id;
+
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -30,5 +39,5 @@ public abstract class BaseEntity {
     private LocalDateTime updatedAt;
 
     @Version
-    private Long version; // For optimistic locking
+    private Long version;
 }

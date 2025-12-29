@@ -5,6 +5,9 @@ spring:
   profiles:
     active: ${ACTIVE_PROFILE:dev}
 
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration
   datasource:
     url: jdbc:h2:mem:wallet_dev;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
@@ -38,7 +41,10 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate  # Changed back to validate since Flyway handles schema
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
     show-sql: true
     properties:
       hibernate:
@@ -52,14 +58,14 @@ spring:
         order_updates: true
 
   flyway:
-    enabled: true  # Enable Flyway for migrations
+    enabled: true
 
   kafka:
     enabled: false
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      value-serializer: org.springframework.kafka.suthpport.serializer.JsonSerializer
       acks: all
       retries: 3
     consumer:

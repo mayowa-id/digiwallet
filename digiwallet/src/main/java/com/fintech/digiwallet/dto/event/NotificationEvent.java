@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -12,6 +13,7 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ConditionalOnProperty(name = "spring.kafka.enabled", havingValue = "true", matchIfMissing = false)
 public class NotificationEvent {
     private String recipient; // email or phone
     private String notificationType; // EMAIL, SMS, PUSH

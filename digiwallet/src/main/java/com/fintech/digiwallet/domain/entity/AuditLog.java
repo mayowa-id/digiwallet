@@ -22,6 +22,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+
 public class AuditLog extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
