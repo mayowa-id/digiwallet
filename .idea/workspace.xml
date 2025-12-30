@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4381fb7-8279-4daa-b467-2be4a51d859a" name="Changes" comment="adjusting db migration">
+    <list default="true" id="c4381fb7-8279-4daa-b467-2be4a51d859a" name="Changes" comment="recurring payment service">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/domain/entity/BaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/domain/entity/BaseEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/domain/entity/RecurringPayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/domain/entity/RecurringPayment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/domain/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/domain/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/digiwallet/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -315,7 +312,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767000289696</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="recurring payment service">
+      <option name="closed" value="true" />
+      <created>1767034604264</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1767034604264</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -353,6 +358,7 @@
     <MESSAGE value="configured kafka" />
     <MESSAGE value="configuring mail" />
     <MESSAGE value="adjusting db migration" />
-    <option name="LAST_COMMIT_MESSAGE" value="adjusting db migration" />
+    <MESSAGE value="recurring payment service" />
+    <option name="LAST_COMMIT_MESSAGE" value="recurring payment service" />
   </component>
 </project>
