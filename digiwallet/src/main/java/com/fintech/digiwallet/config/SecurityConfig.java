@@ -40,8 +40,15 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
 
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))
+
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/api/v1/auth/**", "/actuator/**", "/error").permitAll()
+                    auth.requestMatchers(
+                                    "/api/v1/auth/**",
+                                    "/actuator/**",
+                                    "/error",
+                                    "/h2-console/**"
+                            ).permitAll()
                             .anyRequest().authenticated();
                     System.out.println("✓ AUTH RULES CONFIGURED");
                 })
