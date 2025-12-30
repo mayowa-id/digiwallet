@@ -28,30 +28,30 @@ public class Wallet extends BaseEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(nullable = false, unique = true, length = 20)
+    @Column(name = "wallet_number", nullable = false, unique = true, length = 20)
     private String walletNumber; // Generated unique wallet number
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 3)
     private Currency currency;
 
-    @Column(nullable = false, precision = 19, scale = 4)
+    @Column(name = "balance", nullable = false, precision = 19, scale = 4)
     @Builder.Default
     private BigDecimal balance = BigDecimal.ZERO;
 
-    @Column(nullable = false, precision = 19, scale = 4)
+    @Column(name = "available_balance", nullable = false, precision = 19, scale = 4)
     @Builder.Default
     private BigDecimal availableBalance = BigDecimal.ZERO;
 
-    @Column(nullable = false, precision = 19, scale = 4)
+    @Column(name = "pending_balance", nullable = false, precision = 19, scale = 4)
     @Builder.Default
     private BigDecimal pendingBalance = BigDecimal.ZERO;
 
-    @Column(nullable = false)
+    @Column(name = "is_active",nullable = false)
     @Builder.Default
     private Boolean isActive = true;
 
-    @Column(nullable = false)
+    @Column(name = "is_primary", nullable = false)
     @Builder.Default
     private Boolean isPrimary = false; // One primary wallet per currency
 
@@ -67,3 +67,4 @@ public class Wallet extends BaseEntity {
     @Builder.Default
     private Set<LedgerEntry> ledgerEntries = new HashSet<>();
 }
+

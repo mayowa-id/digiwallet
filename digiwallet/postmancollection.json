@@ -1,0 +1,549 @@
+{
+  "info": {
+    "name": "DigiWallet API",
+    "description": "Complete API collection with automated variable saving",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "userId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "walletNumber",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "cardId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "transactionRef",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('userId', response.data.userId);",
+                  "    console.log('✓ User registered. ID:', response.data.userId);",
+                  "}"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Generate random email for testing",
+                  "const timestamp = Date.now();",
+                  "pm.collectionVariables.set('testEmail', `user${timestamp}@test.com`);",
+                  "pm.collectionVariables.set('testPassword', 'Test@123456');"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{testEmail}}\",\n  \"password\": \"{{testPassword}}\",\n  \"firstName\": \"Test\",\n  \"lastName\": \"User\",\n  \"phoneNumber\": \"+1234567890\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('token', response.data.accessToken);",
+                  "    console.log('✓ Login successful. Token saved.');",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{testEmail}}\",\n  \"password\": \"{{testPassword}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Wallets",
+      "item": [
+        {
+          "name": "Create Wallet",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('walletNumber', response.data.walletNumber);",
+                  "    console.log('✓ Wallet created. Number:', response.data.walletNumber);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"currency\": \"NGN\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/wallets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "wallets"]
+            }
+          }
+        },
+        {
+          "name": "Get User Wallets",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/wallets/user/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "wallets", "user", "{{userId}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Wallet by Number",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/wallets/{{walletNumber}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "wallets", "{{walletNumber}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Wallet Balance",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/wallets/{{walletNumber}}/balance",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "wallets", "{{walletNumber}}", "balance"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Transactions",
+      "item": [
+        {
+          "name": "Deposit",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('transactionRef', response.data.transactionRef);",
+                  "    console.log('✓ Deposit successful. Ref:', response.data.transactionRef);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"walletNumber\": \"{{walletNumber}}\",\n  \"amount\": 10000.00,\n  \"currency\": \"NGN\",\n  \"description\": \"Initial deposit\",\n  \"paymentMethod\": \"CARD\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/transactions/deposit",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "transactions", "deposit"]
+            }
+          }
+        },
+        {
+          "name": "Transfer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    console.log('✓ Transfer successful');",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sourceWalletNumber\": \"{{walletNumber}}\",\n  \"destinationWalletNumber\": \"0987654321\",\n  \"amount\": 1000.00,\n  \"currency\": \"NGN\",\n  \"description\": \"Test transfer\",\n  \"pin\": \"1234\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/transactions/transfer",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "transactions", "transfer"]
+            }
+          }
+        },
+        {
+          "name": "Withdraw",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"walletNumber\": \"{{walletNumber}}\",\n  \"amount\": 500.00,\n  \"currency\": \"NGN\",\n  \"description\": \"Cash withdrawal\",\n  \"bankAccount\": \"0123456789\",\n  \"bankCode\": \"058\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/transactions/withdraw",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "transactions", "withdraw"]
+            }
+          }
+        },
+        {
+          "name": "Get Transaction",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/transactions/{{transactionRef}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "transactions", "{{transactionRef}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Wallet Transactions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/transactions/wallet/{{walletNumber}}?page=0&size=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "transactions", "wallet", "{{walletNumber}}"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Virtual Cards",
+      "item": [
+        {
+          "name": "Create Card",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('cardId', response.data.id);",
+                  "    console.log('✓ Card created. ID:', response.data.id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"walletNumber\": \"{{walletNumber}}\",\n  \"cardType\": \"VISA\",\n  \"currency\": \"NGN\",\n  \"spendingLimit\": 50000.00\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cards",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "cards"]
+            }
+          }
+        },
+        {
+          "name": "Get User Cards",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cards/user/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "cards", "user", "{{userId}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Card",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cards/{{cardId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "cards", "{{cardId}}"]
+            }
+          }
+        },
+        {
+          "name": "Block Card",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cards/{{cardId}}/block",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "cards", "{{cardId}}", "block"]
+            }
+          }
+        },
+        {
+          "name": "Unblock Card",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cards/{{cardId}}/unblock",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "cards", "{{cardId}}", "unblock"]
+            }
+          }
+        },
+        {
+          "name": "Delete Card",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/cards/{{cardId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "cards", "{{cardId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Recurring Payments",
+      "item": [
+        {
+          "name": "Create Recurring Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sourceWalletNumber\": \"{{walletNumber}}\",\n  \"destinationAccount\": \"0987654321\",\n  \"amount\": 5000.00,\n  \"currency\": \"NGN\",\n  \"frequency\": \"MONTHLY\",\n  \"description\": \"Monthly subscription\",\n  \"startDate\": \"2025-01-01\",\n  \"endDate\": \"2025-12-31\",\n  \"maxExecutions\": 12\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/recurring-payments",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "recurring-payments"]
+            }
+          }
+        },
+        {
+          "name": "Get User Recurring Payments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/recurring-payments/user/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "recurring-payments", "user", "{{userId}}"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
