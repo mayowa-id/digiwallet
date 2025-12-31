@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4381fb7-8279-4daa-b467-2be4a51d859a" name="Changes" comment="enabled h2 console">
-      <change afterPath="$PROJECT_DIR$/digiwallet/postmancollection.json" afterDir="false" />
+    <list default="true" id="c4381fb7-8279-4daa-b467-2be4a51d859a" name="Changes" comment="added postman collection">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/domain/entity/Wallet.java" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/domain/entity/Wallet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/config/CorsConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -337,7 +336,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767093254580</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="added postman collection">
+      <option name="closed" value="true" />
+      <created>1767117710437</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1767117710437</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -352,7 +359,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="response" />
     <MESSAGE value="mappers" />
     <MESSAGE value="services" />
     <MESSAGE value="main services" />
@@ -377,6 +383,7 @@
     <MESSAGE value="recurring payment service" />
     <MESSAGE value="edited base entity" />
     <MESSAGE value="enabled h2 console" />
-    <option name="LAST_COMMIT_MESSAGE" value="enabled h2 console" />
+    <MESSAGE value="added postman collection" />
+    <option name="LAST_COMMIT_MESSAGE" value="added postman collection" />
   </component>
 </project>
