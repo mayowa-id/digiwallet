@@ -15,9 +15,11 @@ spring:
     username: postgres.claltomxwdzckbhzwjjb
     password: 2MTy3PB3LGcYTGta
     hikari:
-      maximum-pool-size: 10
-      minimum-idle: 5
+      maximum-pool-size: 3
+      minimum-idle: 1
       connection-timeout: 30000
+      max-lifetime: 600000
+
 
   # Remove H2 console section entirely
   # h2:
@@ -85,7 +87,7 @@ spring:
       timeout: 60000ms
 
 server:
-  port: 8080
+  port: ${PORT:8080}
   error:
     include-message: always
     include-binding-errors: always
