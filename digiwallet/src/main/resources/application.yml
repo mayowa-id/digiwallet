@@ -10,19 +10,20 @@ spring:
       - org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration
 
   datasource:
-    url: jdbc:h2:mem:wallet_dev;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;DATABASE_TO_UPPER=false;CASE_INSENSITIVE_IDENTIFIERS=true
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    url: jdbc:postgresql://aws-1-eu-west-3.pooler.supabase.com:5432/postgres
+    driver-class-name: org.postgresql.Driver
+    username: postgres.claltomxwdzckbhzwjjb
+    password: 2MTy3PB3LGcYTGta
     hikari:
       maximum-pool-size: 10
       minimum-idle: 5
       connection-timeout: 30000
 
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+  # Remove H2 console section entirely
+  # h2:
+  #   console:
+  #     enabled: true
+  #     path: /h2-console
 
   mail:
     host: smtp.gmail.com
@@ -42,22 +43,24 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update  # Changed from 'none' to 'update' for development
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.H2Dialect
-        globally_quoted_identifiers: false  # Changed from true to false
+        dialect: org.hibernate.dialect.PostgreSQLDialect  # Changed from H2Dialect
+        globally_quoted_identifiers: false
         jdbc:
           batch_size: 20
+          lob:
+            non_contextual_creation: true  # Important for PostgreSQL
         order_inserts: true
         order_updates: true
 
   flyway:
-    enabled: true
+    enabled: false  # Disable until you have migration files
 
   kafka:
     enabled: false
@@ -143,6 +146,8 @@ logging:
   level:
     com.fintech.digiwallet: DEBUG
     org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
 

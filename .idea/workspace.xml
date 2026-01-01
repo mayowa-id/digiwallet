@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4381fb7-8279-4daa-b467-2be4a51d859a" name="Changes" comment="added postman collection">
+    <list default="true" id="c4381fb7-8279-4daa-b467-2be4a51d859a" name="Changes" comment="adjusted jwt token provider">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/digiwallet/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/config/CorsConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/security/JwtTokenProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/security/JwtTokenProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/digiwallet/src/main/resources/application-dev.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/digiwallet/src/main/resources/application-local.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/digiwallet/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -344,7 +349,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767117710437</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="activated cors config">
+      <option name="closed" value="true" />
+      <created>1767189395098</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1767189395098</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -359,8 +372,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="mappers" />
-    <MESSAGE value="services" />
     <MESSAGE value="main services" />
     <MESSAGE value="controllers" />
     <MESSAGE value="implementing events" />
@@ -384,6 +395,8 @@
     <MESSAGE value="edited base entity" />
     <MESSAGE value="enabled h2 console" />
     <MESSAGE value="added postman collection" />
-    <option name="LAST_COMMIT_MESSAGE" value="added postman collection" />
+    <MESSAGE value="activated cors config" />
+    <MESSAGE value="adjusted jwt token provider" />
+    <option name="LAST_COMMIT_MESSAGE" value="adjusted jwt token provider" />
   </component>
 </project>

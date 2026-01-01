@@ -1,5 +1,7 @@
 package com.fintech.digiwallet.security;
 
+import com.fintech.digiwallet.domain.entity.User;
+import com.fintech.digiwallet.domain.repository.UserRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
@@ -18,20 +20,29 @@ public class JwtTokenProvider {
 
     private static final Logger log = LoggerFactory.getLogger(JwtTokenProvider.class);
 
+    private final UserRepository userRepository;
+
     @Value("${app.jwt.secret}")
     private String jwtSecret;
 
     @Value("${app.jwt.expiration}")
     private long jwtExpirationMs;
 
+    public JwtTokenProvider(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     public String generateToken(Authentication authentication) {
         UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
+
+        User user = userRepository.findByEmail(userPrincipal.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationMs);
 
         return Jwts.builder()
-                .subject(userPrincipal.getUsername())
+                .subject(user.getId().toString())   // UUID as subject
                 .issuedAt(now)
                 .expiration(expiryDate)
                 .signWith(getSigningKey())
@@ -45,7 +56,7 @@ public class JwtTokenProvider {
                 .parseSignedClaims(token)
                 .getPayload();
 
-        return claims.getSubject();
+        return claims.getSubject(); // now returns UUID string
     }
 
     public boolean validateToken(String authToken) {
