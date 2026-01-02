@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4381fb7-8279-4daa-b467-2be4a51d859a" name="Changes" comment="adjusted hikari settings">
+    <list default="true" id="c4381fb7-8279-4daa-b467-2be4a51d859a" name="Changes" comment="db settings">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/digiwallet/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/src/main/resources/application.yml" afterDir="false" />
     </list>
@@ -368,7 +368,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767294099726</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="db settings">
+      <option name="closed" value="true" />
+      <created>1767304272181</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1767304272181</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -383,7 +391,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="controllers" />
     <MESSAGE value="implementing events" />
     <MESSAGE value="notification service" />
     <MESSAGE value="updated kafka service" />
@@ -408,6 +415,7 @@
     <MESSAGE value="activated cors config" />
     <MESSAGE value="adjusted jwt token provider" />
     <MESSAGE value="adjusted hikari settings" />
-    <option name="LAST_COMMIT_MESSAGE" value="adjusted hikari settings" />
+    <MESSAGE value="db settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="db settings" />
   </component>
 </project>
