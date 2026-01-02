@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4381fb7-8279-4daa-b467-2be4a51d859a" name="Changes" comment="db settings">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/digiwallet/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/src/main/resources/application.yml" afterDir="false" />
-    </list>
+    <list default="true" id="c4381fb7-8279-4daa-b467-2be4a51d859a" name="Changes" comment="updated my yml file" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -376,7 +373,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767304272181</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="updated my yml file">
+      <option name="closed" value="true" />
+      <created>1767369211436</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1767369211436</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -391,7 +396,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="implementing events" />
     <MESSAGE value="notification service" />
     <MESSAGE value="updated kafka service" />
     <MESSAGE value="impelemented recurring payment service" />
@@ -416,6 +420,7 @@
     <MESSAGE value="adjusted jwt token provider" />
     <MESSAGE value="adjusted hikari settings" />
     <MESSAGE value="db settings" />
-    <option name="LAST_COMMIT_MESSAGE" value="db settings" />
+    <MESSAGE value="updated my yml file" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated my yml file" />
   </component>
 </project>
