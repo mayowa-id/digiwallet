@@ -35,6 +35,7 @@ public class JwtTokenProvider {
     public String generateToken(Authentication authentication) {
         UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
 
+        String username = userPrincipal.getUsername();
         User user = userRepository.findByEmail(userPrincipal.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -42,7 +43,7 @@ public class JwtTokenProvider {
         Date expiryDate = new Date(now.getTime() + jwtExpirationMs);
 
         return Jwts.builder()
-                .subject(user.getId().toString())   // UUID as subject
+                .subject(username)
                 .issuedAt(now)
                 .expiration(expiryDate)
                 .signWith(getSigningKey())

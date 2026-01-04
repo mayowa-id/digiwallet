@@ -93,6 +93,7 @@ public class AuthController {
 
         String jwt = tokenProvider.generateToken(authentication);
 
+
         LoginResponse response = LoginResponse.builder()
                 .accessToken(jwt)
                 .tokenType("Bearer")
