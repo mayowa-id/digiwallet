@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4381fb7-8279-4daa-b467-2be4a51d859a" name="Changes" comment="updated my yml file">
+    <list default="true" id="c4381fb7-8279-4daa-b467-2be4a51d859a" name="Changes" comment="update to create wallet method">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/security/JwtTokenProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/security/JwtTokenProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/controller/WalletController.java" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/controller/WalletController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/dto/request/CreateWalletRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/dto/request/CreateWalletRequest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -393,7 +393,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767372834775</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="update to create wallet method">
+      <option name="closed" value="true" />
+      <created>1767534081777</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1767534081778</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -408,7 +416,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="notification service" />
     <MESSAGE value="updated kafka service" />
     <MESSAGE value="impelemented recurring payment service" />
     <MESSAGE value="edited auth controller" />
@@ -433,6 +440,7 @@
     <MESSAGE value="adjusted hikari settings" />
     <MESSAGE value="db settings" />
     <MESSAGE value="updated my yml file" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated my yml file" />
+    <MESSAGE value="update to create wallet method" />
+    <option name="LAST_COMMIT_MESSAGE" value="update to create wallet method" />
   </component>
 </project>

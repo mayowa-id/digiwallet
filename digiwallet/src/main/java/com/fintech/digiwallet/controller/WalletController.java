@@ -1,15 +1,20 @@
 package com.fintech.digiwallet.controller;
 
+import com.fintech.digiwallet.domain.entity.User;
+import com.fintech.digiwallet.domain.repository.UserRepository;
 import com.fintech.digiwallet.dto.request.CreateWalletRequest;
 import com.fintech.digiwallet.dto.response.ApiResponse;
 import com.fintech.digiwallet.dto.response.BalanceResponse;
 import com.fintech.digiwallet.dto.response.WalletResponse;
+import com.fintech.digiwallet.exception.UserNotFoundException;
 import com.fintech.digiwallet.service.WalletService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,10 +27,18 @@ import java.util.UUID;
 public class WalletController {
 
     private final WalletService walletService;
+    private final UserRepository userRepository;
 
     @PostMapping
     public ResponseEntity<ApiResponse<WalletResponse>> createWallet(
-            @Valid @RequestBody CreateWalletRequest request) {
+            @Valid @RequestBody CreateWalletRequest request,
+           @AuthenticationPrincipal UserDetails userDetails) {
+
+        User user = userRepository.findByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        // Override userId with authenticated user's ID
+        request.setUserId(user.getId());
         log.info("Creating wallet for user: {}", request.getUserId());
 
         WalletResponse wallet = walletService.createWallet(request);
