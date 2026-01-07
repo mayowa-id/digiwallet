@@ -35,7 +35,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        System.out.println("========== LOADING CUSTOM SECURITY CONFIG ==========");
+        System.out.println(" LOADING CUSTOM SECURITY CONFIG ");
 
         http
                 .csrf(AbstractHttpConfigurer::disable)
@@ -65,7 +65,7 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         SecurityFilterChain chain = http.build();
-        System.out.println("========== SECURITY FILTER CHAIN BUILT SUCCESSFULLY ==========");
+        System.out.println(" SECURITY FILTER CHAIN BUILT SUCCESSFULLY ");
         return chain;
     }
 
