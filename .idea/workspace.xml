@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4381fb7-8279-4daa-b467-2be4a51d859a" name="Changes" comment="updated Wallet Controller">
+    <list default="true" id="c4381fb7-8279-4daa-b467-2be4a51d859a" name="Changes" comment="updated auth controller">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/digiwallet/src/main/java/com/fintech/digiwallet/controller/AuthController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -416,7 +415,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767793103883</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="updated auth controller">
+      <option name="closed" value="true" />
+      <created>1767794294470</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1767794294471</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -431,7 +438,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="edited auth controller" />
     <MESSAGE value="updated dependencies" />
     <MESSAGE value="updated properties" />
     <MESSAGE value="created email service" />
@@ -456,6 +462,7 @@
     <MESSAGE value="update to create wallet method" />
     <MESSAGE value="update to create wallet controller" />
     <MESSAGE value="updated Wallet Controller" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated Wallet Controller" />
+    <MESSAGE value="updated auth controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated auth controller" />
   </component>
 </project>
