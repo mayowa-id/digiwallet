@@ -68,6 +68,19 @@ public class WalletController {
         return ResponseEntity.ok(ApiResponse.success(wallets));
     }
 
+    @GetMapping("/my-wallets")
+    public ResponseEntity<ApiResponse<List<WalletResponse>>> getMyWallets(
+            @AuthenticationPrincipal UserDetails userDetails) {
+
+        User user = userRepository.findByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        log.info("Fetching wallets for user: {}", user.getId());
+        List<WalletResponse> wallets = walletService.getUserWallets(user.getId());
+
+        return ResponseEntity.ok(ApiResponse.success(wallets));
+    }
+
     @GetMapping("/{walletNumber}/balance")
     public ResponseEntity<ApiResponse<BalanceResponse>> getBalance(
             @PathVariable String walletNumber) {
