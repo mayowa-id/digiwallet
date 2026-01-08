@@ -1,14 +1,19 @@
 package com.fintech.digiwallet.controller;
 
 import com.fintech.digiwallet.domain.entity.RecurringPayment;
+import com.fintech.digiwallet.domain.entity.User;
+import com.fintech.digiwallet.domain.repository.UserRepository;
 import com.fintech.digiwallet.dto.request.RecurringPaymentRequest;
 import com.fintech.digiwallet.dto.response.ApiResponse;
+import com.fintech.digiwallet.exception.UserNotFoundException;
 import com.fintech.digiwallet.service.RecurringPaymentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +26,7 @@ import java.util.UUID;
 public class RecurringPaymentController {
 
     private final RecurringPaymentService recurringPaymentService;
+    private final UserRepository userRepository;
 
     @PostMapping
     public ResponseEntity<ApiResponse<RecurringPayment>> createRecurringPayment(
@@ -58,4 +64,18 @@ public class RecurringPaymentController {
         return ResponseEntity.ok(
                 ApiResponse.success(null, "Scheduled payment cancelled successfully"));
     }
+
+    @GetMapping("/my-payments")
+    public ResponseEntity<ApiResponse<List<RecurringPayment>>> getMyPayments(
+            @AuthenticationPrincipal UserDetails userDetails) {
+
+        User user = userRepository.findByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        List<RecurringPayment> payments =
+                recurringPaymentService.getUserRecurringPayments(user.getId());
+
+        return ResponseEntity.ok(ApiResponse.success(payments));
+    }
+
 }

@@ -1,14 +1,19 @@
 package com.fintech.digiwallet.controller;
 
+import com.fintech.digiwallet.domain.entity.User;
+import com.fintech.digiwallet.domain.repository.UserRepository;
 import com.fintech.digiwallet.dto.request.VirtualCardRequest;
 import com.fintech.digiwallet.dto.response.ApiResponse;
 import com.fintech.digiwallet.dto.response.VirtualCardResponse;
+import com.fintech.digiwallet.exception.UserNotFoundException;
 import com.fintech.digiwallet.service.VirtualCardService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +26,9 @@ import java.util.UUID;
 public class VirtualCardController {
 
     private final VirtualCardService virtualCardService;
+    private final UserRepository userRepository;
+    private VirtualCardService cardService;
+
 
     @PostMapping
     public ResponseEntity<ApiResponse<VirtualCardResponse>> createCard(
@@ -85,5 +93,15 @@ public class VirtualCardController {
 
         return ResponseEntity.ok(
                 ApiResponse.success(null, "Card deleted successfully"));
+    }
+
+    @GetMapping("/cards/my-cards")
+    public ResponseEntity<ApiResponse<List<VirtualCardResponse>>> getMyCards(
+            @AuthenticationPrincipal UserDetails userDetails) {
+        User user = userRepository.findByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        List<VirtualCardResponse> cards = cardService.getUserCards(user.getId());
+        return ResponseEntity.ok(ApiResponse.success(cards));
     }
 }
